@@ -6,7 +6,7 @@
 /*   By: asemykin <asemykin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:46:54 by asemykin          #+#    #+#             */
-/*   Updated: 2025/10/15 22:00:43 by asemykin         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:40:55 by asemykin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ int main()
         if(command == "ADD")
             phonebook.addContact();
         else if(command == "SEARCH")
-            phonebook.searchContact();
+            phonebook.displayPhonebook();
         else if(command == "EXIT")
             break;
         else
-            std::cout << "  > Invalid Input <" << "\n" << std::endl;
+            std::cout << ">> Invalid Input <<"  << std::endl;
     }
     return 0;
 }
-

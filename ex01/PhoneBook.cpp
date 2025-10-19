@@ -6,7 +6,7 @@
 /*   By: asemykin <asemykin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 11:38:03 by asemykin          #+#    #+#             */
-/*   Updated: 2025/10/15 22:17:29 by asemykin         ###   ########.fr       */
+/*   Updated: 2025/10/17 23:55:51 by asemykin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ std::string getInput(std::string msg)
         std::cout << msg;
         std::getline(std::cin, input);
         if(input.empty())
-            std::cout << "  --- Input must be filled ---" << std::endl;
+            std::cout << "--- Input must be filled ---" << std::endl;
     }
     return input;
 }
@@ -57,31 +57,65 @@ void PhoneBook::addContact()
     contacts[index].set_phone(phone);
     contacts[index].set_secret(secret);
 
-    index = (index + 1) % 8;
+    index++;
+    if(index > 7)   
+        index = 0;
     if(count < 8)
         count++;
     
-    std::cout << "  +++ Contact added successfully +++" << "\n" << std::endl;
+    std::cout << "+++ Contact added successfully +++" << "\n" << std::endl;
 }
 
-void PhoneBook::displayContacts() const
+int PhoneBook::displayContacts() const
 {
     if(count > 0)
     {
         for(int i = 0; i < count; i++)
             contacts[i].displaySummary(i);
+        return 1;
     }
-    else
-        std::cout << "|-----------------  EMPTY  -----------------|" << std::endl; 
+    std::cout << "|-----------------  EMPTY  -----------------|" << "\n" << std::endl; 
+    return 0;
 }
 
-void PhoneBook::searchContact() const
+int validIndex(std::string str, int count)
+{
+    int index;
+    
+    if(str.length() == 1 )
+    {
+        if(std::isdigit(str[0]))
+        {
+            index = str[0] - '0';
+            if(index >= 0 && index < count)
+                return index;
+        }
+    }
+    return -1;
+}
+
+void PhoneBook::displayIndex() const
+{
+    int         index;
+    std::string command;
+    
+    std::cout << "\n" << "Enter Index if you want more information" << std::endl;
+    std::getline(std::cin, command); 
+    index = validIndex(command, count);
+    
+    if(index >= 0)
+        contacts[index].displayIndex();
+    else
+        std::cout << std::endl;
+}
+
+void PhoneBook::displayPhonebook() const
 {
     std::cout   << "\n" 
                 << "|---------------  PHONEBOOK  ---------------|" << "\n"
                 << "|-------------------------------------------|" << "\n"
                 << "|     INDEX|FIRST NAME| LAST NAME|  NICKNAME|" << "\n"
                 << "|-------------------------------------------|" << std::endl;
-    displayContacts();    
-    std::cout   << "|-------------------------------------------|" << "\n" << std::endl;                
+    if(displayContacts())
+        displayIndex(); 
 }

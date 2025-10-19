@@ -6,7 +6,7 @@
 /*   By: asemykin <asemykin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:27:52 by asemykin          #+#    #+#             */
-/*   Updated: 2025/10/15 23:23:10 by asemykin         ###   ########.fr       */
+/*   Updated: 2025/10/16 15:26:07 by asemykin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,41 +41,28 @@ void Contact::set_secret(std::string str)
 }
 
 std::string entryFormat(std::string entry)
-{    
+{   
+    std::string subs;
+    
     if(entry.length() > 10)
-        return (entry.substr(0,9) + ".");
+    {
+        subs = entry.substr(0,9);
+        subs += '.';
+        return (subs);
+    }
         
     return entry;
 }
 
-int validDigit(std::string str)
-{
-    int index;
-    
-    if(str.length() == 1 )
-    {
-        if(std::isdigit(str[0]))
-        {
-            index = str[0] - '0';
-            if(index >= 0 && index <= 7)
-                return index;
-        }
-    }
-    return -1;
-}
-
 void Contact::displayIndex() const
 {
-    std::string index;
-    
-    std::cout << "Enter Index for more information" << std::endl;
-    std::getline(std::cin, index);  
-
-    if(validDigit(index))
-        std::cout << "VALID" << std::endl;
+    std::cout   << "First Name:     " << firstName << "\n"
+                << "Last Name:      " << lastName << "\n"
+                << "Nickname:       " << nickName << "\n"
+                << "Phonenumber:    " << phoneNumber << "\n"
+                << "Darkest Secret: " << darkestSecret << "\n" << std::endl;
 }
 
-    
 void Contact::displaySummary(int index) const
 {
     std::cout   << "|"
@@ -83,6 +70,4 @@ void Contact::displaySummary(int index) const
                 << std::setw(10) << entryFormat(firstName) << "|"
                 << std::setw(10) << entryFormat(lastName) << "|"
                 << std::setw(10) << entryFormat(nickName) << "|" << std::endl;
-    
-    displayIndex();
 }
