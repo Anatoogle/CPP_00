@@ -1,18 +1,18 @@
 
-CXX 				= g++
+CXX 				= c++
 CPPFLAGS 			= -Wall -Wextra -Werror -std=c++98
 NAME 				= account
 SRC 				= Account.cpp tests.cpp
 
-OBJ 				= $(SRC:.c=.o)
+OBJ 				= $(SRC:.cpp=.o)
 
 
 # Rule to compile and link only when necessary
 $(NAME): $(OBJ)
 	$(CXX) $(CPPFLAGS) -o $(NAME) $(OBJ)
 
-# Rule to compile .c files into .o files (Prevents unnecessary relinking)
-%.o: %.c
+# Rule to compile .cpp files into .o files (Prevents unnecessary relinking)
+%.o: %.cpp
 	$(CXX) $(CPPFLAGS) -c $< -o $@ 
 
 
