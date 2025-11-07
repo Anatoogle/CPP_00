@@ -6,11 +6,11 @@
 /*   By: asemykin <asemykin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 11:38:03 by asemykin          #+#    #+#             */
-/*   Updated: 2025/10/17 23:55:51 by asemykin         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:30:36 by asemykin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.hpp"
+#include "../includes/PhoneBook.hpp"
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -19,6 +19,38 @@
 PhoneBook::PhoneBook() {
     index = 0;
     count = 0;
+}
+
+int checkPhonenumber(std::string msg)
+{
+    int i = 0;
+    if(msg[0] == '+' && msg[1] != '\0')
+        i++;
+    for (; msg[i]; i++)
+    {
+        if(std::isdigit(msg[i]) != 1)
+            return 0;
+    }
+    return 1;
+}
+
+std::string getInputNumber(std::string msg)
+{
+    std::string input;
+    
+    while(input.empty())
+    {   
+        std::cout << msg;
+        std::getline(std::cin, input);
+        if(input.empty())
+            std::cout << "--- Input must be filled ---" << std::endl;
+        else if(checkPhonenumber(input) != 1)
+        {
+            std::cout << "--- Input must be a Number ---" << std::endl;
+            input = "";
+        }
+    }
+    return input;
 }
 
 std::string getInput(std::string msg)
@@ -48,7 +80,7 @@ void PhoneBook::addContact()
     first = getInput("Enter First Name: ");
     last = getInput("Enter Last Name: ");
     nick = getInput("Enter Nickname: ");
-    phone = getInput("Enter Phonenumber: ");
+    phone = getInputNumber("Enter Phonenumber: ");
     secret = getInput("Enter Darkest Secret: ");
 
     contacts[index].set_first(first);

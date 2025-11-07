@@ -2,30 +2,44 @@
 CXX 				= c++
 CPPFLAGS 			= -Wall -Wextra -Werror -std=c++98
 NAME 				= phonebook
-SRC 				= main.cpp \
-						PhoneBook.cpp \
-						Contact.cpp
+SRC_DIR	  		  	= src
+SRC 				= $(SRC_DIR)/main.cpp \
+						$(SRC_DIR)/PhoneBook.cpp \
+						$(SRC_DIR)/Contact.cpp
 
-OBJ 				= $(SRC:.cpp=.o)
+OBJ_DIR   = obj
+OBJ       = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
 
-# Rule to compile and link only when necessary
+# Default rule
+all: $(NAME)
+
+
+# Link step
 $(NAME): $(OBJ)
 	$(CXX) $(CPPFLAGS) -o $(NAME) $(OBJ)
 
-# Rule to compile .cpp files into .o files (Prevents unnecessary relinking)
-%.o: %.cpp
-	$(CXX) $(CPPFLAGS) -c $< -o $@ 
+
+# Ensure obj/ exists before compiling each .cpp
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+	$(CXX) $(CPPFLAGS) -c $< -o $@
 
 
-all: $(NAME) 
+# Create obj/ folder if missing (get deleted at clean)
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-re: fclean all
 
+# Cleaning rules
 clean:
-	rm -f $(OBJ)
+	rm -rf $(OBJ_DIR)/*.o
+
 
 fclean: clean
 	rm -f $(NAME)
 
-.PHONY: clean fclean re all
+
+re: fclean all
+
+
+.PHONY: all clean fclean re

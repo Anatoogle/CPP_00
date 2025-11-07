@@ -6,11 +6,11 @@
 /*   By: asemykin <asemykin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:27:52 by asemykin          #+#    #+#             */
-/*   Updated: 2025/10/16 15:26:07 by asemykin         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:29:53 by asemykin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Contact.hpp"
+#include "../includes/Contact.hpp"
 #include <iostream>
 #include <iomanip>
 #include <string>
