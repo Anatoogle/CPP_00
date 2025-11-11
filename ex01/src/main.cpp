@@ -6,7 +6,7 @@
 /*   By: asemykin <asemykin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:46:54 by asemykin          #+#    #+#             */
-/*   Updated: 2025/11/07 12:30:34 by asemykin         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:21:37 by asemykin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int main()
         std::cout << "Enter a command: ";
         std::getline(std::cin, command);
         
+        if(std::cin.eof())
+            break;
         if(command == "ADD")
             phonebook.addContact();
         else if(command == "SEARCH")

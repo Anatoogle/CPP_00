@@ -6,7 +6,7 @@
 /*   By: asemykin <asemykin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 11:38:03 by asemykin          #+#    #+#             */
-/*   Updated: 2025/11/07 12:30:36 by asemykin         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:06:38 by asemykin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 #include <string>
 #include <iomanip>
 
+
+// isalpha() → alphabetic
+// isalnum() → alphanumeric
+// isascii() → ASCII
+// isdigit(), isspace(), etc.
+
+enum CharClass {
+    ALPHABETIC,
+    ALL
+};
+            
 // constructor
 PhoneBook::PhoneBook() {
     index = 0;
@@ -42,7 +53,9 @@ std::string getInputNumber(std::string msg)
     {   
         std::cout << msg;
         std::getline(std::cin, input);
-        if(input.empty())
+        if(std::cin.eof())
+            exit(0);
+        else if(input.empty())
             std::cout << "--- Input must be filled ---" << std::endl;
         else if(checkPhonenumber(input) != 1)
         {
@@ -53,15 +66,58 @@ std::string getInputNumber(std::string msg)
     return input;
 }
 
-std::string getInput(std::string msg)
+int onlySpace(std::string msg)
+{
+    int len = msg.size();
+    int count = 0;
+    
+    for(int i = 0; msg[i]; i++)
+    {
+        if(isspace((unsigned char)msg[i]))
+            count++;
+    }
+    if(len == count)
+        return 1;
+    return 0;
+}
+
+int onlyAlphabetic(std::string msg)
+{
+    int len = msg.size();
+    int count = 0;
+    
+    for(int i = 0; msg[i]; i++)
+    {
+        if(isalpha((unsigned char)msg[i]) || msg[i] == ' ' )
+            count++;
+    }
+    
+    if(len == count)
+        return 1;
+    return 0;
+}
+
+std::string getInput(std::string msg, CharClass alpha)
 {
     std::string input;
-    
+
     while(input.empty())
     {   
         std::cout << msg;
         std::getline(std::cin, input);
-        if(input.empty())
+        if(std::cin.eof())
+            exit(0);
+        else if(onlySpace(input))
+        {
+            std::cout << "--- Input must be filled ---" << std::endl;
+            input = "";
+        }
+        else if(alpha == ALPHABETIC && onlyAlphabetic(input) == 0)
+        {
+            std::cout << "--- Input must be Alphabetic ---" << std::endl;
+            input = "";
+        }
+        else if(input.empty())
             std::cout << "--- Input must be filled ---" << std::endl;
     }
     return input;
@@ -77,11 +133,11 @@ void PhoneBook::addContact()
     std::string phone;
     std::string secret;
 
-    first = getInput("Enter First Name: ");
-    last = getInput("Enter Last Name: ");
-    nick = getInput("Enter Nickname: ");
+    first = getInput("Enter First Name: ", ALPHABETIC);
+    last = getInput("Enter Last Name: ", ALPHABETIC);
+    nick = getInput("Enter Nickname: ", ALL);
     phone = getInputNumber("Enter Phonenumber: ");
-    secret = getInput("Enter Darkest Secret: ");
+    secret = getInput("Enter Darkest Secret: ", ALL);
 
     contacts[index].set_first(first);
     contacts[index].set_last(last);

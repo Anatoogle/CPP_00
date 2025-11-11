@@ -6,7 +6,7 @@
 /*   By: asemykin <asemykin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:19:47 by asemykin          #+#    #+#             */
-/*   Updated: 2025/10/16 14:39:13 by asemykin         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:24:23 by asemykin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define PHONEBOOK_HPP
 
 #include "Contact.hpp"
+#include <stdlib.h>
 
 class PhoneBook{
 private:
