@@ -1,0 +1,293 @@
+{
+  "groups": [
+    {
+      "id": "dafpb96ppcpmgqzhcex",
+      "name": "CPP 00",
+      "desc": "cpp module 00",
+      "topics": [
+        {
+          "id": "cmb39ri79xvmgqzhl9z",
+          "name": "ex00",
+          "desc": "theory",
+          "cards": [
+            {
+              "id": "7h8aq78pcqkmgr1n605",
+              "term": "what is std::cout <<",
+              "expl": "- is the standard output stream operator used to print \n  (or output) data to the console.\n\n\nstd   - This is the namespace where most of the C++ Standard Library symbols \n        (like cout, cin, etc.) live.\n\ncout  - Short for “character output”. \n        It’s an object of the class std::ostream that represents \n        the standard output stream (usually your terminal or console).\n\n<<    - This is the insertion operator. It’s used to send \n        (or \"insert\") data into the output stream.",
+              "status": "failed",
+              "consecutivePassed": 0
+            },
+            {
+              "id": "zdhu3o11kthmgqzwkbb",
+              "term": "what is this actually doing:\n<< std::endl;",
+              "expl": "- Insert a newline character \\n\n- Flushes the output buffer \n  meaning: forces the text to appear immediately on the screen/terminal\n\n- using '\\n' is faster and behaves exactly as you expect in almost every situation.",
+              "status": "failed",
+              "consecutivePassed": 0
+            },
+            {
+              "id": "c0qhxory2o7mgqzz0qo",
+              "term": "what does \"flushing\" mean ?",
+              "expl": "- Flushing means Forcing that buffer to empty right now — \n  sending everything it holds to the actual output device \n  (like your console or terminal).\n\n- the text \"Hello, world!\\n\" doesn’t always go immediately to your screen.\n\n- Instead, C++ stores it temporarily in a buffer — \n  a small chunk of memory that holds output until it’s convenient \n  to actually display or write it.\n  \n  This makes I/O faster, because writing to the screen \n  (or a file) is relatively slow.",
+              "status": "failed",
+              "consecutivePassed": 0
+            },
+            {
+              "id": "thztytah8smgr05q00",
+              "term": "Why people avoid std::endl",
+              "expl": "- std::endl flushes the output buffer every time — that can make programs slower,   \n  especially in loops or heavy output.\n",
+              "status": "failed",
+              "consecutivePassed": 0
+            },
+            {
+              "id": "1j8g70xqoqdmgr0699i",
+              "term": "When you might still want std::endl",
+              "expl": "- You need to ensure the text appears immediately \n  (like before asking for user input or debugging a crash).",
+              "status": "passed",
+              "consecutivePassed": 1
+            }
+          ]
+        },
+        {
+          "id": "ksflnjoikn9mgr02am1",
+          "name": "ex00",
+          "desc": "coding exercise",
+          "cards": [
+            {
+              "id": "nmx5vbnsntemgr28t97",
+              "term": "write the megaphone main:\n\n$>./megaphone \"shhhhh... I think the students are asleep...\"\nSHHHHH... I THINK THE STUDENTS ARE ASLEEP...\n\n$>./megaphone Damnit \" ! \" \"Sorry students, I thought this thing was off.\"\nDAMNIT ! SORRY STUDENTS, I THOUGHT THIS THING WAS OFF.\n\n$>./megaphone\n* LOUD AND UNBEARABLE FEEDBACK NOISE *",
+              "expl": "#include <iostream>\n\nint main(int argc, char **argv)\n{\n  int i;\n  int j;\n  \n  if(argc < 2)\n    std::cout << * LOUD AND UNBEARABLE FEEDBACK NOISE *;\n\n  i = 0;\n  while(argv && argv[i])\n  {\n    j = -1;\n    while(argv[i][++j])\n      std:cout << (char)std::touper(argv[i][j]);\n    i++;\n  }\n  std:cout << std::endl;\n  return(0);\n}\n\n\nint main (int argc, char **argv)\n{\n   if(argc > 1)\n   {\n       for(int i = 1; argv[i]; i++)\n       {\n           for(int j = 0; argv[i][j]; j++)\n               std::cout << (char)std::toupper(argv[i][j]);\n       }\n   }\n   else\n       std::cout << \"* LOUD AND UNBEARABLE FEEDBACK NOISE *\";\n   std::cout << std::endl;\n   return (0);\n}\n",
+              "status": "none"
+            }
+          ]
+        },
+        {
+          "id": "jjgk1aqsjbmgru4axr",
+          "name": "ex01",
+          "desc": "theory",
+          "cards": [
+            {
+              "id": "6opf7729g0jmgru5y0r",
+              "term": "what does const do at the end of a function?\n\npublic:\n  void displayDetails() const;",
+              "expl": "- This function does not modify the object it belongs to.\n\n- If you try to modify firstName or any other member inside this function, \n  the compiler will give an error.",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "kuiypdd65p9mgru9fxh",
+              "term": "what does this do / allow?\n\nconst Contact c;\nc.displayDetails();",
+              "expl": "- It also allows you to call a function on const objects.\n\n- c.displayDetails();\n    -> only allowed if displayDetails() is const",
+              "status": "failed",
+              "consecutivePassed": 0
+            },
+            {
+              "id": "9nnxl9zb38nmgrul6ez",
+              "term": "What is the difference between private and public members in a C++ class?\n\nclass Contact { \nprivate: \n    // private members \npublic: \n    // public functions \n};",
+              "expl": "private:\n  - Only a class itself can see or change these members\n  - Example:\n      firstName is private:\n          you cant access it directly from outside the class\n          \npublic:\n  - Anyone can use these functions from outside the class\n  - Example:\n      setInfo() is public:\n          main program can call it to fill a contact\n\n\n+----------------+\n|   Contact      |\n|----------------|\n| private stuff  | <- hidden inside, no direct access\n| public stuff   | <- door to interact safely from outside\n+----------------+\n",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "3ne87yqilkdmgrvu3no",
+              "term": "Whats the difference between:\n\nstd::cin >> command\nstd::getline(std::cin, command)",
+              "expl": "std::cin >> command\n    -> reads one word (stops at any space, tab, or newline).\n\nstd::getline(std::cin, command)\n    -> reads the whole line, including spaces, until the user presses Enter.",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "4ihh09gdra4mgrwhowd",
+              "term": "Why do we include headers like <iostream> and <string> in a .cpp file even if they are already included in the header?",
+              "expl": "- Each .cpp file is compiled separately, \n  so it must include all headers it directly uses. \n  \n- This makes the file self-sufficient, avoids hidden dependencies, \n  and is common C++ practice.",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "oj7rqn7bfyfmgrwsmvz",
+              "term": "Why do we include <string> but not <iostream> in a C++ header file?",
+              "expl": "- Include <string> if the class uses std::string in its members or declarations. \n\n- <iostream> isn’t needed in the header if we only use input/output in the .cpp file, \n  keeping headers minimal and avoiding unnecessary dependencies.",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "gp70s0hkgevmgrwy0q6",
+              "term": "What’s the difference between \n    #include <string> \nand this\n    #include <string>\n    using std::string;\n?",
+              "expl": "- With using std::string; \n    → can write string directly:\n        \n        string firstName;\n        \n        \n- Without using std::string; \n    → must prefix with std:::\n        \n        std::string firstName;",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "av378i5o2h9mgs5ozi6",
+              "term": "What is a constructor in C++?",
+              "expl": "- A constructor is a special class function automatically called when an object is created.\n\n- It initializes the object’s members.\n\n- It has the same name as the class and no return type.\n\n- Example:\n    PhoneBook::PhoneBook() { count = 0; nextIndex = 0; }\n",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "vqibvrzclfkmgrzknko",
+              "term": "What are the two ways to write a constructor in C++ to initialize members?",
+              "expl": "- Initializer list:\n\n    PhoneBook::PhoneBook() : count(0), nextIndex(0) {}\n  \n  \n- Constructor body:\n\n    PhoneBook::PhoneBook() {\n        count = 0;\n        nextIndex = 0;\n    }",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "256joqdanskmgs8qfsx",
+              "term": "How does 'firstName = first;' inside 'Contact::setInfo()' know which object’s 'firstName' to use?\n\nvoid Contact::setInfo(std::string first)\n{\n  firstName = first;\n}",
+              "expl": "- Because 'setInfo()' is a member function of 'Contact', \n  it automatically works on the current object through the hidden pointer 'this'.\n\n- So 'firstName = first;' is the same as 'this->firstName = first;'.\n\n- Both are same:\n    firstName = first;\n    this->firstName = first;\n    ",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "t4eweizor7mgs9o6zd",
+              "term": "what is static allocation?",
+              "expl": "Static allocation\n\n- That memory is created automatically (on the stack).\n    int numbers[8];\n    Contact contacts[8];\n    \n- It’s fixed in size and disappears automatically when the function or program ends.\n\n- Can’t change the size while the program runs\n",
+              "status": "failed",
+              "consecutivePassed": 0
+            },
+            {
+              "id": "2qkl90psfnzmgs9ohv8",
+              "term": "What is dynamic allocation?",
+              "expl": "Dynamic allocation\n\n- This memory is created at runtime (on the heap).\n    int* numbers = new int[8];\n    Contact* contacts = new Contact[8];\n    \n- You decide how much memory to allocate while the program is running.\n\n- You must manually delete it later:\n    -> delete[] numbers;",
+              "status": "passed",
+              "consecutivePassed": 1
+            },
+            {
+              "id": "08kd3dryfwbymgs9t40n",
+              "term": "What is an instance of a class?",
+              "expl": "- A specific object created from a class — like a real thing built from a blueprint.\n\n- The class is the blueprint,\n  and an instance is the actual object that exists in memory.  \n  \n  \n    class PhoneBook {\n       // class blueprint\n    };\n    \n    int main() {\n        PhoneBook myPhoneBook;  // ← this is an instance\n    }\n    \n    - PhoneBook = the class (blueprint)\n    - myPhoneBook = an instance (real object)",
+              "status": "passed",
+              "consecutivePassed": 1
+            }
+          ]
+        },
+        {
+          "id": "55n2vwd414hmguon47x",
+          "name": "ex02",
+          "desc": "theory",
+          "cards": [
+            {
+              "id": "arzwz88kl69mguoqmph",
+              "term": "What is the difference between static and non-static members?\n\nclass Account {\nprivate:\n    static int _nbAccounts;   // static\n    int count;                // non-static\n};",
+              "expl": "Static Members\n- Belong to the class, not any one object\n- Shared among all instances\n- Declared in the class, defined once outside it\n- Often used for counters, totals, shared state\n\nNon-static Members\n\n- Belong to each individual object\n- Initialized per object (each instance has its own value)\n- Set in constructor’s initializer list or body",
+              "status": "none"
+            },
+            {
+              "id": "be8yilyvkscmguou3qd",
+              "term": "Can a constructor initializes non-static members?\n\nclass Account {\nprivate:\n    static int _nbAccounts; // declaration only\n};",
+              "expl": "- The constructor initializes non-static members\n\n- static members are defined outside the class.\n\n    // In Account.cpp\n    int Account::_nbAccounts = 0;",
+              "status": "none"
+            },
+            {
+              "id": "kesye6sdqtmgupuovf",
+              "term": "where do u init static members and how often?",
+              "expl": "- you initialize static members only once in a single .cpp file\n\n- After that, any .cpp file that includes Account.hpp can use the static members, \n  but you don’t re-initialize them anywhere else.",
+              "status": "none"
+            },
+            {
+              "id": "8oe88gpvk1pmgur2amd",
+              "term": "what does : in this case means?\n\nAccount::Account(int initial_deposit)\n    : _accountIndex(_nbAccounts), _amount(initial_deposit),\n      _nbDeposits(0), _nbWithdrawals(0)\n{\n}",
+              "expl": "- The part after the colon : is called an initializer list.\n\n_accountIndex(_nbAccounts)  -> set _accountIndex to _nbAccounts.\n_amount(initial_deposit)    -> set _amount to the constructor argument.\n_nbDeposits(0)              -> start at 0\n_nbWithdrawals(0)           -> start at 0\n\n- It looks like a function call, \n  but it’s really just directly initializing the member variable\n  before the constructor body runs.",
+              "status": "none"
+            },
+            {
+              "id": "agpn8c6bel5mgutaa0w",
+              "term": "What does static mean for a C++ class member function, and why is _displayTimestamp() static?\n\nclass Account {\nprivate:\n\tstatic void\t_displayTimestamp( void );\n};",
+              "expl": "- A static member function belongs to the class itself, not to any object.\n- It can be called without an instance of the class\n    Account::_displayTimestamp()\n    \n- It cannot access non-static members (like _amount) \n  because there’s no specific object (this) associated.\n  \n- _displayTimestamp() is static because it only prints the timestamp and \n  doesn’t need any data from a specific account.",
+              "status": "none"
+            },
+            {
+              "id": "wvxlwuy0upmguto7x7",
+              "term": "What is a deconstructor?\n\nclass Account {\npublic:\n    ~Account(void)\n};",
+              "expl": "- A destructor is a special class function that runs automatically\n  when an object is destroyed (goes out of scope or is deleted).\n  \n- It has the same name as the class but with a ~ in front.\n\n- It cleans up the object — like freeing resources, closing files, or logging info.\n\n\nKey points:\n\n  - No arguments\n  - Only one per class\n  - Called automatically",
+              "status": "none"
+            },
+            {
+              "id": "yep6kanytejmgw1at5j",
+              "term": "what does this do?\n\ntypedef unsigned int uint;",
+              "expl": "- Now uint can be used instead of unsigned int.\n\n- typedef creates a new name (alias) for an existing type",
+              "status": "none"
+            },
+            {
+              "id": "kv6h3pi4cbmgw1e9l6",
+              "term": "What is Account::t ?",
+              "expl": "- In the header file of Account.hpp inside the class Account, we have:\n    typedef Account t;\n    \n- That means Account::t is just an alias for Account.\n",
+              "status": "none"
+            },
+            {
+              "id": "j0l629l7g8mgw1fjh4",
+              "term": "What does this mean?\n\ntypedef std::vector<Account::t> accounts_t;",
+              "expl": "- Create a type alias called accounts_t, \n  which is a std::vector containing Account objects.\n  \n- now we can write \n    accounts_t accounts;\n  instead of:\n    std::vector<Account> accounts;\n",
+              "status": "none"
+            },
+            {
+              "id": "9i2oa6jf18cmgw1g0yw",
+              "term": "What does typedef std::vector<Account::t> accounts_t; do?",
+              "expl": "It defines accounts_t as an alias for std::vector<Account>, so accounts_t is a vector of Account objects.",
+              "status": "none"
+            },
+            {
+              "id": "qv4mz593clmmgw1j0c4",
+              "term": "What is a vector in C++?",
+              "expl": "- A std::vector is a dynamic array — \n  it can grow and shrink automatically as you add or remove elements.\n  \n- Example:\n      #include <vector>\n  \n      std::vector<int> numbers; // an empty list of ints\n      numbers.push_back(10);\n      numbers.push_back(20);\n      \n  Now numbers contains [10, 20].\n  \n  ✅ You don’t need to know the size ahead of time.\n  ✅ You can loop, access, and modify items easily.",
+              "status": "none"
+            },
+            {
+              "id": "hxqb6og7f5mgw1p3uz",
+              "term": "What is this code doing?\n\ntypedef std::vector<Account::t> accounts_t;\n\nint const amounts[] = { 42, 54, 957, 432, 1234, 0, 754, 16576 };\naccounts_t accounts(amounts, amounts + amounts_size);",
+              "expl": "- accounts_t is a vector (list) that holds Account objects.\n\n- we create 8 accounts, one for each initial deposit amount.\n    -> accounts[0] → Account with amount 42\n    -> accounts[1] → Account with amount 54\n    -> and so on…",
+              "status": "none"
+            },
+            {
+              "id": "woy3eq1q3nmgw1t67b",
+              "term": "What’s the difference between an array and a vector?",
+              "expl": "- Array = fixed-size, low-level, can’t grow or shrink.\n    - Fixed size — you can’t resize it after creation.\n    - Stored on the stack (usually).\n\n    int arr[3] = {1, 2, 3};\n    arr[0] = 42;    // ok\n    arr[3] = 99;    // ❌ out of range, undefined behavior\n    \n- Vector = is dynamic, can grow and shrink, part of the C++ Standard Library.\n    - It manages its own memory automatically.\n    \n    std::vector<int> v = {1, 2, 3};\n    v.push_back(4); // now v = {1, 2, 3, 4}\n    v.pop_back();   // removes last element",
+              "status": "none"
+            },
+            {
+              "id": "js8ab3qijzmgw2yjpe",
+              "term": "The Account constructor takes only one argument, for the vector why we do this \n    accounts_t accounts(amounts, amounts + amounts_size);  ?",
+              "expl": "- This is a special std::vector constructor.\n- It can take two iterators (or pointers) — a range — \n  and automatically fills the vector with objects constructed from that range.\n  \n      std::vector<Type> vec(begin, end);\n      \n      Create a vector and fill it with elements built from \n      everything between begin and end\n         \n- In our case:\n    - amounts is a pointer to the first int in the array.\n    - amounts + amounts_size points one past the last int.\n    \n    \nHow does it know how to make an Account from an int?\n    - Because the Account class has a constructor that takes one int:\n        Account::Account(int initial_deposit);\n    - So when we say:\n        std::vector<Account> accounts(amounts, amounts + amounts_size);\n    - C++ says:\n        For each int in that range, call Account(int) and \n        put the result into the vector.\n        \n        - So internally, it’s doing something like:\n            accounts.push_back(Account(42));\n            accounts.push_back(Account(54));\n            ...\n\n\n  ",
+              "status": "none"
+            },
+            {
+              "id": "u38ijanst5mgw61an7",
+              "term": "What’s a std::pair?",
+              "expl": "- std::pair<A, B> is a simple structure that holds two values, \n  possibly of different types.\n\n- Example:\n     std::pair<int, std::string> example(42, \"hello\");\n    - You can access them as:\n\n        example.first;   // 42\n        example.second;  // \"hello\"\n        \n- So a pair is just two things bundled together.",
+              "status": "none"
+            },
+            {
+              "id": "zglsza6k6vmgw6655e",
+              "term": "What is \n\ntypedef std::pair<accounts_t::iterator, ints_t::iterator> acc_int_t;?",
+              "expl": "- It defines acc_int_t as a pair of iterators\n    - one that points to an Account in the accounts vector, \n    - and one that points to an int in the deposits (or withdrawals) vector.\n\n- Let’s decode that.\n    - accounts_t = std::vector<Account>\n    - accounts_t::iterator = an iterator (a kind of pointer) \n      that can move through that vector.\n    - ints_t = std::vector<int>\n    - ints_t::iterator = iterator that moves through a vector of ints.",
+              "status": "none"
+            },
+            {
+              "id": "656nppm5jw7mgw6chxo",
+              "term": "What is iterator in general?",
+              "expl": "- An iterator is like a smart pointer that allows you to move through a container     \n  (like a vector, list, or map) element by element.\n  \n- It behaves a bit like a pointer:\n\n    - You can access the value with *it\n    - You can move to the next element with ++it\n    - You can compare it to another iterator with == or !=\n\n\n- Every std::vector type automatically defines an inner type called iterator.\n      \n      typedef std::vector<Account::t> accounts_t;\n      \n      accounts_t::iterator\n        -> is the type of iterator \n           that can be used to walk through that vector of accounts.",
+              "status": "none"
+            },
+            {
+              "id": "ajw3mcj2h9jmgw6dt9d",
+              "term": "What does accounts_t::iterator mean?",
+              "expl": "- accounts_t::iterator is the iterator type used to move through a \n  std::vector<Account> \n  (like a smart pointer that can step through each Account in the vector).\n  ",
+              "status": "none"
+            },
+            {
+              "id": "01u6yok0kowdmgw6edbp",
+              "term": "How it’s used:\n\ntypedef std::vector<Account::t> accounts_t;",
+              "expl": "\n\n    accounts_t accounts(amounts, amounts + amounts_size);\n    accounts_t::iterator acc_begin = accounts.begin();\n    accounts_t::iterator acc_end = accounts.end();\n    \n      - acc_begin points to the first element in the vector.\n      - acc_end points one past the last element \n        (not valid to read, but used to mark the end).",
+              "status": "none"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "FlashLearn",
+    "schema": 1
+  },
+  "settings": {
+    "proStatus": 5,
+    "theme": "dark"
+  }
+}
