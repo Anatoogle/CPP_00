@@ -1,6 +1,6 @@
 This project has been created as part of the 42 curriculum by asemykin
 
-# C++ - Module 01
+# C++ - Module 00
 
 The CPP modules at 42 Wolfsburg teach Object-Oriented Programming in C++ step by step, covering everything from basic classes to advanced concepts.
 
