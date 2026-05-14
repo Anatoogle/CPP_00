@@ -5,13 +5,11 @@ This project has been created as part of the 42 curriculum by asemykin
 The CPP modules at 42 Wolfsburg teach Object-Oriented Programming in C++ step by step, covering everything from basic classes to advanced concepts
 
 **Module 00:** 
-Namespaces, classes, member functions, stdio streams, initialization lists, static, const, and some other basic stuff
+- Namespaces, classes, member functions, stdio streams, initialization lists, static, const, and some other basic stuff
 
 ---
 
 ## Rules
-
----
 
 ### Compiling
 
